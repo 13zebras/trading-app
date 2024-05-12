@@ -2,19 +2,23 @@
 
 import { useState } from 'react'
 
-const Orders = ({ fetchAccounts }: { fetchAccounts: (apiCall: string) => Promise <any> }) => {
+const Orders = ({ fetchData }: { fetchData: (apiCall: string) => Promise <any> }) => {
 
   const [accountsFunded, setaccountsFunded] = useState([])
 
-  const handleButtonClick = async () => {
-    // const data = await fetchAccounts('fills')
-    const data = await fetchAccounts('batch')
+  const handleOrderClick = async () => {
+    const data = await fetchData('fills')
     console.log('>>> order data:', data)
     // const orders = data.accounts
     // console.log('>>> accounts', accounts)
     // const accountsWithBalance = accounts.filter((account: any) => account.available_balance.value !== '0')
     // console.log('>>> accountsWithBalance', accountsWithBalance)
     // setaccountsFunded(accountsWithBalance) 
+  }
+
+  const handleProductsClick = async () => {
+    const data = await fetchData('listProducts')
+    console.log('>>> list products:', data)
   }
 
   const buildTable = () => {
@@ -41,12 +45,14 @@ const Orders = ({ fetchAccounts }: { fetchAccounts: (apiCall: string) => Promise
   return (
     <main className="min-h-screen flex flex-col items-center justify-start gap-y-16 p-24">
       <h1 className="text-3xl font-bold text-center text-zinc-400">Orders Data</h1>
-      <button onClick={handleButtonClick} className="bg-violet-800 hover:bg-violet-700 active:bg-violet-600 text-zinc-300 text-lg font-bold py-1 w-48 rounded-2xl">Get Orders</button>
-        
-        {accountsFunded.length === 0 ?
-        (<div className="text-zinc-300"> Nothing to see here...</div>)
-        : buildTable()}
-        
+      <div className='flex flex-row gap-x-8'>
+        <button onClick={handleProductsClick} className="bg-violet-800 hover:bg-violet-700 active:bg-violet-600 text-zinc-300 text-lg font-bold py-1 w-48 rounded-2xl">Get Products</button>
+        <button onClick={handleOrderClick} className="bg-lime-800 hover:bg-lime-700 active:bg-lime-600 text-zinc-300 text-lg font-bold py-1 w-48 rounded-2xl">Get Orders</button>
+      </div>
+      {/* {accountsFunded.length === 0 ?
+      (<div className="text-zinc-300"> Nothing to see here...</div>)
+      : buildTable()}
+       */}
       
     </main>
   )

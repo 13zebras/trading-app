@@ -1,10 +1,10 @@
-import {fetchAccounts} from '@/app/actions'
+import { fetchData } from '@/app/actions'
 import Accounts from '@/components/Accounts'
 
 
 export default async function AccountsPage() {
 
   return (
-    <Accounts fetchAccounts={fetchAccounts as () => Promise<string>} />
+    <Accounts fetchData={fetchData as () => Promise<string>} />
   )
 }

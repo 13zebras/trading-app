@@ -2,27 +2,15 @@ import { sign } from 'jsonwebtoken'
 import crypto from 'crypto'
 import { JwtPayload, SignOptions } from 'jsonwebtoken'
 
-const getJwtToken = (apiCall: string) => {
+const getJwtToken = (endpoint: string) => {
 
-  let url = 'api.coinbase.com'
-
-  if (apiCall === 'accounts') {
-    url += '/api/v3/brokerage/accounts'
-  } else if (apiCall === 'fills') {
-    url += '/api/v3/brokerage/orders/historical/fills'
-  } else if (apiCall === 'batch') {
-    url += '/api/v3/brokerage/orders/historical/batch'
-  } else {
-    return 'Invalid url for JWT'
-  }
-
-  console.log('\n\n>>> JWT URL:\n', url)
+  // console.log('\n\n>>> JWT URL:\n', endpoint)
 
   const keyName = process.env.API_KEY_NAME
   const privateKey = process.env.API_PRIVATE_KEY
   const requestMethod = 'GET'
   
-  const uri = `${requestMethod} ${url}`
+  const uri = `${requestMethod} ${endpoint}`
 
   const payload: JwtPayload = {
     sub: keyName,
